@@ -1,0 +1,330 @@
+Notebook[{
+Cell[BoxData["Exit"], "Input",
+ CellLabel->
+  "In[208]:=",ExpressionUUID->"2c5ce6b5-0d52-4c77-8a0b-9bd47b2e02c7"],
+
+Cell[BoxData[
+ RowBox[{"Get", "[", 
+  RowBox[{"FileNameJoin", "[", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"ParentDirectory", "[", 
+      RowBox[{"NotebookDirectory", "[", "]"}], "]"}], ",", 
+     "\"\<RandomFlightPDF.wl\>\""}], "}"}], "]"}], "]"}]], "Input",
+ CellLabel->"In[1]:=",ExpressionUUID->"6dff5f54-acab-4487-960b-0683d2635169"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"ClearAll", "[", "\[Rho]", "]"}], ";"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{"Our", " ", 
+    RowBox[{"implementation", "."}]}], "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"\[Rho]", "[", "n_Integer", "]"}], ":=", 
+    RowBox[{"r", "\[Function]", 
+     RowBox[{"RandomFlightPDF", "[", 
+      RowBox[{"r", ",", "n"}], "]"}]}]}], ";"}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{"Implementation", " ", "with", " ", "binomial", " ", 
+    RowBox[{"coefficients", "."}]}], "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"ClearAll", "[", "\[Rho]Binomial", "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"\[Rho]Binomial", "[", "nn_Integer", "]"}], ":=", 
+    RowBox[{"With", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"n", "=", "nn"}], ",", 
+        RowBox[{"ell", "=", "1"}]}], "}"}], ",", 
+      RowBox[{"r", "\[Function]", 
+       RowBox[{"2", " ", 
+        RowBox[{
+         RowBox[{"r", "/", 
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{"2", "ell"}], ")"}], "^", "n"}]}], "/", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"n", "-", "2"}], ")"}], "!"}]}], 
+        RowBox[{"Sum", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{"-", "1"}], ")"}], "^", 
+            RowBox[{"(", 
+             RowBox[{"m", "+", "1"}], ")"}]}], 
+           RowBox[{"Binomial", "[", 
+            RowBox[{"n", ",", "m"}], "]"}], 
+           RowBox[{
+            RowBox[{"Ramp", "[", 
+             RowBox[{"r", "+", 
+              RowBox[{"n", " ", "ell"}], "-", 
+              RowBox[{"2", " ", "m", " ", "ell"}]}], "]"}], "^", 
+            RowBox[{"(", 
+             RowBox[{"n", "-", "2"}], ")"}]}]}], ",", 
+          RowBox[{"{", 
+           RowBox[{"m", ",", "0", ",", "n"}], "}"}]}], "]"}]}]}]}], 
+     "\[IndentingNewLine]", "]"}]}], ";"}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{"Using", " ", 
+    RowBox[{"Mathematica", "'"}], "s", " ", 
+    RowBox[{"BSplineBasis", "."}]}], "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"ClearAll", "[", 
+   RowBox[{"\[Rho]BSpline", ",", "r"}], "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"\[Rho]BSpline", "[", "n_", "]"}], ":=", 
+   RowBox[{"r", "\[Function]", 
+    RowBox[{"Evaluate", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"-", "r"}], "/", 
+        RowBox[{"(", 
+         RowBox[{"2", "n"}], ")"}]}], 
+       RowBox[{"D", "[", 
+        RowBox[{
+         RowBox[{"BSplineBasis", "[", 
+          RowBox[{
+           RowBox[{"n", "-", "1"}], ",", "0", ",", "\[Xi]"}], "]"}], ",", 
+         "\[Xi]"}], "]"}]}], "/.", 
+      RowBox[{"{", 
+       RowBox[{"\[Xi]", "->", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"r", "+", "n"}], ")"}], "/", 
+         RowBox[{"(", 
+          RowBox[{"2", "n"}], ")"}]}]}], "}"}]}], "]"}]}]}], ";"}]}], "Input",
+ 
+ CellLabel->
+  "In[166]:=",ExpressionUUID->"0af2b873-60e4-4470-8d8f-6951dca22e34"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"Our", " ", "implementation", " ", "is", " ", 
+    RowBox[{"correct", "."}]}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"n", "=", "100"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"sampleCount", "=", "1000000"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"r", "=", 
+     RowBox[{"Norm", "/@", 
+      RowBox[{"Total", "[", 
+       RowBox[{
+        RowBox[{"RandomPoint", "[", 
+         RowBox[{
+          RowBox[{"Sphere", "[", "]"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"sampleCount", ",", "n"}], "}"}]}], "]"}], ",", 
+        RowBox[{"{", "2", "}"}]}], "]"}]}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{"Show", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"Histogram", "[", 
+      RowBox[{"r", ",", "\"\<Wand\>\"", ",", "\"\<PDF\>\""}], "]"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Plot", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"\[Rho]", "[", "n", "]"}], "[", "r", "]"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"r", ",", "0", ",", "n"}], "}"}], ",", 
+       RowBox[{"PlotRange", "->", "All"}]}], "]"}]}], "\[IndentingNewLine]", 
+    "]"}]}]}]], "Input",
+ CellLabel->
+  "In[172]:=",ExpressionUUID->"8330163f-6f2d-4f60-87ba-27e079cb4d2c"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"For", " ", "small", " ", "n"}], ",", " ", 
+    RowBox[{
+    "all", " ", "three", " ", "implementation", " ", "produce", " ", 
+     "basically", " ", "the", " ", "correct", " ", 
+     RowBox[{"results", "."}]}]}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"n", "=", "10"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Quiet", "[", 
+         RowBox[{
+          RowBox[{"\[Rho]BSpline", "[", "n", "]"}], "[", "r", "]"}], "]"}], 
+        "-", 
+        RowBox[{
+         RowBox[{"\[Rho]", "[", "n", "]"}], "[", "r", "]"}]}], ",", 
+       RowBox[{
+        RowBox[{"Quiet", "[", 
+         RowBox[{
+          RowBox[{"\[Rho]BSpline", "[", "n", "]"}], "[", "r", "]"}], "]"}], 
+        "-", 
+        RowBox[{
+         RowBox[{"\[Rho]Binomial", "[", "n", "]"}], "[", "r", "]"}]}]}], 
+      "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"r", ",", "0", ",", "n"}], "}"}], ",", 
+     RowBox[{"PlotRange", "->", "All"}]}], "]"}]}]}]], "Input",
+ CellLabel->
+  "In[176]:=",ExpressionUUID->"9fd02924-063c-44c4-b1d0-8fa580ce7300"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"For", " ", "greater", " ", "n"}], ",", " ", 
+    RowBox[{
+    "the", " ", "piecewise", " ", "polynomial", " ", "implementation", " ", 
+     "becomes", " ", 
+     RowBox[{"instable", "."}]}]}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"n", "=", "30"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Quiet", "[", 
+         RowBox[{
+          RowBox[{"\[Rho]BSpline", "[", "n", "]"}], "[", "r", "]"}], "]"}], 
+        "-", 
+        RowBox[{
+         RowBox[{"\[Rho]", "[", "n", "]"}], "[", "r", "]"}]}], ",", 
+       RowBox[{
+        RowBox[{"Quiet", "[", 
+         RowBox[{
+          RowBox[{"\[Rho]BSpline", "[", "n", "]"}], "[", "r", "]"}], "]"}], 
+        "-", 
+        RowBox[{
+         RowBox[{"\[Rho]Binomial", "[", "n", "]"}], "[", "r", "]"}]}]}], 
+      "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"r", ",", "0", ",", "n"}], "}"}], ",", 
+     RowBox[{"PlotRange", "->", "All"}]}], 
+    "]"}]}]}]], \
+"Input",ExpressionUUID->"2f9de875-fcbe-4d21-ab37-10b1838ed64a"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+   "Our", " ", "implementation", " ", "is", " ", "as", " ", "robust", " ", 
+    "as", " ", 
+    RowBox[{"Mathematica", "'"}], 
+    RowBox[{"s", "."}]}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"n", "=", "100"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"Quiet", "[", 
+        RowBox[{
+         RowBox[{"\[Rho]BSpline", "[", "n", "]"}], "[", "r", "]"}], "]"}], 
+       "-", 
+       RowBox[{
+        RowBox[{"\[Rho]", "[", "n", "]"}], "[", "r", "]"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"r", ",", "0", ",", "n"}], "}"}], ",", 
+     RowBox[{"PlotRange", "->", "All"}]}], 
+    "]"}]}]}]], \
+"Input",ExpressionUUID->"df37eb3a-bf68-4af1-83c4-f73d0b25bc49"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+   "Our", " ", "implementation", " ", "is", " ", "orders", " ", "of", " ", 
+    "magnitude", " ", "faster", " ", "than", " ", 
+    RowBox[{"Mathematica", "'"}], 
+    RowBox[{"s", "."}]}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"n", "=", "100"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"x", "=", 
+     RowBox[{"Subdivide", "[", 
+      RowBox[{"0.", ",", "n", ",", "1000"}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"pBSpline", "=", 
+      RowBox[{"Quiet", "[", 
+       RowBox[{
+        RowBox[{"\[Rho]BSpline", "[", "n", "]"}], "/@", "x"}], "]"}]}], ";"}],
+     "//", "AbsoluteTiming"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{"p", "=", 
+       RowBox[{
+        RowBox[{"\[Rho]", "[", "n", "]"}], "[", "x", "]"}]}], ";"}], "//", 
+     "Quiet"}], "//", 
+    "AbsoluteTiming"}]}]}]], \
+"Input",ExpressionUUID->"ae24c030-b97a-413d-a40a-6f532899c78c"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+   "Our", " ", "implementation", " ", "is", " ", "orders", " ", "of", " ", 
+    "magnitude", " ", "faster", " ", "than", " ", 
+    RowBox[{"Mathematica", "'"}], 
+    RowBox[{"s", "."}]}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"n", "=", "400"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"x", "=", 
+     RowBox[{"Subdivide", "[", 
+      RowBox[{"0.", ",", "n", ",", "1000"}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"pBSpline", "=", 
+      RowBox[{"Quiet", "[", 
+       RowBox[{
+        RowBox[{"\[Rho]BSpline", "[", "n", "]"}], "/@", "x"}], "]"}]}], ";"}],
+     "//", "AbsoluteTiming"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{"p", "=", 
+       RowBox[{
+        RowBox[{"\[Rho]", "[", "n", "]"}], "[", "x", "]"}]}], ";"}], "//", 
+     "Quiet"}], "//", "AbsoluteTiming"}]}]}]], "Input",
+ CellLabel->"In[61]:=",ExpressionUUID->"469f7037-bc28-423e-bb22-e97fac4c52ba"],
+
+Cell[BoxData[
+ RowBox[{"ListLinePlot", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"pBSpline", "-", "p"}], "}"}], ",", 
+   RowBox[{"PlotRange", "->", "All"}]}], "]"}]], "Input",
+ CellLabel->
+  "In[70]:=",ExpressionUUID->"b4f20ed9-54e7-4a6f-a3ef-b1f86af6f0b6"]
+},
+WindowSize->{1496, 905},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+FrontEndVersion->"13.3 for Mac OS X ARM (64-bit) (July 24, 2023)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"90aeb437-7f4d-4548-9455-cbe720b859a1"
+]
+

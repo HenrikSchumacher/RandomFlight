@@ -9,7 +9,7 @@ namespace RandomFlight
 {
     template<typename Real_ = double> class PDF
     {
-        static_assert( std::is_floating_point_v<Real_>, " Type must be a real floating point type.");
+        static_assert( std::is_floating_point_v<Real_>, "Type must be a real floating point type.");
         
     public:
         
