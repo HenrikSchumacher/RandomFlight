@@ -11,7 +11,7 @@ Cell[BoxData[
      RowBox[{"ParentDirectory", "[", 
       RowBox[{"NotebookDirectory", "[", "]"}], "]"}], ",", 
      "\"\<RandomFlightPDF.wl\>\""}], "}"}], "]"}], "]"}]], "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"6dff5f54-acab-4487-960b-0683d2635169"],
+ CellLabel->"In[38]:=",ExpressionUUID->"6dff5f54-acab-4487-960b-0683d2635169"],
 
 Cell[BoxData[{
  RowBox[{
@@ -107,8 +107,7 @@ Cell[BoxData[{
          RowBox[{"(", 
           RowBox[{"2", "n"}], ")"}]}]}], "}"}]}], "]"}]}]}], ";"}]}], "Input",
  
- CellLabel->
-  "In[166]:=",ExpressionUUID->"0af2b873-60e4-4470-8d8f-6951dca22e34"],
+ CellLabel->"In[39]:=",ExpressionUUID->"0af2b873-60e4-4470-8d8f-6951dca22e34"],
 
 Cell[BoxData[
  RowBox[{
@@ -137,14 +136,43 @@ Cell[BoxData[
      "\[IndentingNewLine]", 
      RowBox[{"Plot", "[", 
       RowBox[{
-       RowBox[{
-        RowBox[{"\[Rho]", "[", "n", "]"}], "[", "r", "]"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"\[Rho]", "[", "n", "]"}], "[", "r", "]"}], "}"}], ",", 
        RowBox[{"{", 
         RowBox[{"r", ",", "0", ",", "n"}], "}"}], ",", 
        RowBox[{"PlotRange", "->", "All"}]}], "]"}]}], "\[IndentingNewLine]", 
     "]"}]}]}]], "Input",
- CellLabel->
-  "In[172]:=",ExpressionUUID->"8330163f-6f2d-4f60-87ba-27e079cb4d2c"],
+ CellLabel->"In[68]:=",ExpressionUUID->"8330163f-6f2d-4f60-87ba-27e079cb4d2c"],
+
+Cell[BoxData[{
+ RowBox[{"Plot", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"\[Rho]", "[", "n", "]"}], "[", "r", "]"}], "-", 
+     RowBox[{
+      RowBox[{"\[Rho]Binomial", "[", "n", "]"}], "[", 
+      RowBox[{"SetPrecision", "[", 
+       RowBox[{"r", ",", "30"}], "]"}], "]"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"r", ",", "0", ",", "n"}], "}"}], ",", 
+   RowBox[{"PlotRange", "->", "All"}]}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"Plot", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"\[Rho]", "[", "n", "]"}], "[", "r", "]"}], "-", 
+     RowBox[{
+      RowBox[{"\[Rho]Binomial", "[", "n", "]"}], "[", 
+      RowBox[{"SetPrecision", "[", 
+       RowBox[{"r", ",", "100"}], "]"}], "]"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"r", ",", "0", ",", "n"}], "}"}], ",", 
+   RowBox[{"PlotRange", "->", "All"}]}], "]"}]}], "Input",
+ CellLabel->"In[66]:=",ExpressionUUID->"4f7a29e8-6c2b-4d49-961a-04d09b00cac8"],
 
 Cell[BoxData[
  RowBox[{
